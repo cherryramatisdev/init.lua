@@ -9,6 +9,11 @@ null_ls.setup({
 		null_ls.builtins.completion.spell,
 		null_ls.builtins.formatting.rubocop,
 		null_ls.builtins.diagnostics.rubocop,
-		null_ls.builtins.code_actions.rubocop,
 	},
+})
+
+require("mason-null-ls").setup({
+	ensure_installed = nil,
+	automatic_installation = true,
+	automatic_setup = false,
 })
