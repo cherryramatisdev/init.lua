@@ -6,6 +6,7 @@ return {
 	-- Installer
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
+  "jay-babu/mason-null-ls.nvim",
 
 	-- Completion
 	"hrsh7th/nvim-cmp",

@@ -9,8 +9,9 @@ return {
 			})
 		end,
 	},
-	"folke/noice.nvim",
-	"MunifTanjim/nui.nvim",
+	-- "folke/noice.nvim",
+	{ "j-hui/fidget.nvim", config = true },
+	-- "MunifTanjim/nui.nvim",
 	"rcarriga/nvim-notify",
 	{
 		"stevearc/dressing.nvim",
