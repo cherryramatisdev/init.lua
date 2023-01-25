@@ -157,7 +157,7 @@ ls.add_snippets("lua", {
     "req",
     fmt([[local {} = require"{}"]], {
       fn(function(import_name)
-        local parts = vim.split(import_name[1][1], ".", true)
+        local parts = vim.split(import_name[1][1], ".", nil)
         return parts[#parts] or ""
       end, { 1 }),
       i(1),
