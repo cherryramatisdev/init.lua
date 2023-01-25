@@ -1,3 +1,6 @@
+require'cherry'
+
+vim.opt.termguicolors = true
 vim.g.mapleader = " "
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
