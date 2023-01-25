@@ -1,4 +1,7 @@
 return {
+	"kyazdani42/nvim-web-devicons",
+	"tjdevries/express_line.nvim",
+	"nvim-lualine/lualine.nvim",
 	{
 		"smjonas/live-command.nvim",
 		config = function()
