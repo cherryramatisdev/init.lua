@@ -8,11 +8,13 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
-vim.opt.inccommand = 'split'
+vim.opt.hidden = true
 
-vim.g.editorconfig_enable = false
+vim.opt.inccommand = "split"
 
-vim.opt.diffopt:append('linematch:60')
+vim.opt.autoindent = true
+
+vim.opt.diffopt:append("linematch:60")
 
 vim.opt.smartindent = true
 
@@ -32,7 +34,7 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.laststatus = 3
-vim.opt.winbar = '%f'
+vim.opt.winbar = "%f"
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
@@ -40,4 +42,9 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.cmd [[ au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif ]]
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = "*.blade.php",
+  command = "set ft=php",
+})
+
+vim.cmd([[ au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif ]])
