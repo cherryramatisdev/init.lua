@@ -54,10 +54,15 @@ lspconfig.tsserver.setup({
   on_attach = on_attach,
 })
 
-lspconfig.sorbet.setup({
+lspconfig.solargraph.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+
+-- lspconfig.sorbet.setup({
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
 
 lspconfig.rust_analyzer.setup({
   capabilities = capabilities,

@@ -29,7 +29,7 @@ cmp.setup({
 		["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 		["<Tab>"] = nil,
 		["<S-Tab>"] = nil,
-		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-o>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 	}),
