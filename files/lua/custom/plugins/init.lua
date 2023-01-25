@@ -4,7 +4,6 @@ return {
   "tjdevries/colorbuddy.vim",
   "tjdevries/gruvbuddy.nvim",
   "Mofiqul/vscode.nvim",
-  "kyazdani42/nvim-web-devicons",
   "kdheepak/lazygit.nvim",
   "stevearc/oil.nvim",
   "tpope/vim-fugitive",

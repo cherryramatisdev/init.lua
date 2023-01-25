@@ -34,7 +34,6 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.laststatus = 3
-vim.opt.winbar = "%f"
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
