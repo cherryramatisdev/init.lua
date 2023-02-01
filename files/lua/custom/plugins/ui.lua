@@ -9,7 +9,7 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
   },
-  "nvim-lualine/lualine.nvim",
+  "tjdevries/express_line.nvim",
   {
     "smjonas/live-command.nvim",
     config = function()

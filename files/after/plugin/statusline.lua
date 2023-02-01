@@ -1,64 +1,49 @@
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
-}
--- local generator = function()
--- 	local el_segments = {}
---
--- 	local extensions = require("el.extensions")
--- 	local subscribe = require("el.subscribe")
--- 	table.insert(el_segments, extensions.mode)
---
--- 	table.insert(el_segments, " ")
---
--- 	table.insert(
--- 		el_segments,
--- 		subscribe.buf_autocmd("el_git_branch", "BufEnter", function(window, buffer)
--- 			local branch = extensions.git_branch(window, buffer)
--- 			if branch then
--- 				local git_icon = require("nvim-web-devicons").get_icon_by_filetype("git", {})
--- 				return git_icon .. " " .. branch
--- 			end
--- 		end)
--- 	)
---
--- 	return el_segments
--- end
---
--- require("el").setup({ generator = generator })
+vim.cmd.highlight('StatusLine guibg=NONE')
+
+local function status_diagnostic()
+  local diagnostics = vim.diagnostic.get(vim.api.nvim_get_current_buf())
+  local error_count = 0
+  local warn_count = 0
+  local info_count = 0
+  local hint_count = 0
+
+  for _, v in ipairs(diagnostics) do
+    if v.severity == vim.diagnostic.severity.ERROR then
+      error_count = error_count + 1
+    end
+
+    if v.severity == vim.diagnostic.severity.WARN then
+      warn_count = warn_count + 1
+    end
+
+    if v.severity == vim.diagnostic.severity.INFO then
+      info_count = info_count + 1
+    end
+
+    if v.severity == vim.diagnostic.severity.HINT then
+      hint_count = hint_count + 1
+    end
+  end
+
+  return string.format('🛑%s ⚠️ %s ℹ️ %s 💡%s', error_count, warn_count, info_count, hint_count)
+end
+
+require("el").setup({
+  generator = function()
+    local el_segments = {}
+
+    local extensions = require("el.extensions")
+
+    table.insert(el_segments, extensions.mode)
+
+    table.insert(el_segments, '%=')
+
+    table.insert(el_segments, status_diagnostic)
+
+    table.insert(el_segments, '%=')
+
+    table.insert(el_segments, extensions.git_changes)
+
+    return el_segments
+  end,
+})
