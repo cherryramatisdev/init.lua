@@ -34,12 +34,12 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 	}),
 	sources = cmp.config.sources({
-		{ name = "copilot", priority = 1 },
-		{ name = "nvim_lsp", priority = 2 },
-		{ name = "luasnip", priority = 3 },
+		{ name = "emmet_vim" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 	}, {
-		{ name = "buffer", priority = 3 },
-		{ name = "path", priority = 1 },
+		{ name = "buffer" },
+		{ name = "path" },
 	}),
 })
 
