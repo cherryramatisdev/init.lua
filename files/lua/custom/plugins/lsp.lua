@@ -3,10 +3,18 @@ return {
 	"folke/neodev.nvim",
 	"neovim/nvim-lspconfig",
 
+	-- Auto configurable plugins
+	{
+		"akinsho/flutter-tools.nvim",
+		config = function()
+			require("flutter-tools").setup({})
+		end,
+	},
+
 	-- Installer
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
-  "jay-babu/mason-null-ls.nvim",
+	"jay-babu/mason-null-ls.nvim",
 
 	-- Completion
 	"hrsh7th/nvim-cmp",
@@ -14,19 +22,14 @@ return {
 	"hrsh7th/cmp-path",
 	"saadparwaiz1/cmp_luasnip",
 	"hrsh7th/cmp-nvim-lsp",
+	"dcampos/cmp-emmet-vim",
+	"mattn/emmet-vim",
 	"onsails/lspkind-nvim",
 	{
 		"Kasama/nvim-custom-diagnostic-highlight",
 		config = true,
 	},
-	{
-		"zbirenbaum/copilot.lua",
-		config = true,
-	},
-	{
-		"zbirenbaum/copilot-cmp",
-		config = true,
-	},
+
 	-- Snippets
 	"L3MON4D3/LuaSnip",
 	-- "rafamadriz/friendly-snippets",
