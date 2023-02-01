@@ -97,7 +97,7 @@ ls.add_snippets("ruby", {
     dyn(1, function()
       return sn(
         "",
-        fmt("describe '{}' do" .. "\n" .. "{}\n" .. "end", {
+        fmt("describe '{}' do" .. "\n" .. "{}" .. "\n" .. "end", {
           i(1),
           i(0),
         })
