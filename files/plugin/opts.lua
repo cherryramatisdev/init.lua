@@ -41,8 +41,6 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.g.lazygit_use_neovim_remote = 1
-
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = "*.blade.php",
   command = "set ft=php",

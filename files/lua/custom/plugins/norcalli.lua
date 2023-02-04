@@ -15,5 +15,4 @@ return {
 		end,
 	},
 	{ "norcalli/nvim-base16.lua", branch = "theme-editor" },
-  "norcalli/nvim-popterm.lua",
 }

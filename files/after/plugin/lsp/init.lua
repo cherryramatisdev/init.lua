@@ -44,7 +44,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- 	group = vim.api.nvim_create_augroup("phplsp", {}),
 -- 	pattern = "*.php",
 -- 	callback = function()
--- 		on_attach(nil, vim.api.nvim_get_current_buf())
 -- 	end,
 -- })
 
@@ -52,7 +51,6 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 lspconfig.sumneko_lua.setup({
 	capabilities = capabilities,
-	on_attach = on_attach,
 	settings = {
 		Lua = {
 			completion = {
@@ -64,22 +62,22 @@ lspconfig.sumneko_lua.setup({
 
 lspconfig.tsserver.setup({
 	capabilities = capabilities,
-	on_attach = on_attach,
+})
+
+lspconfig.svelte.setup({
+	capabilities = capabilities,
 })
 
 lspconfig.solargraph.setup({
 	capabilities = capabilities,
-	on_attach = on_attach,
 })
 
 -- lspconfig.sorbet.setup({
 --   capabilities = capabilities,
---   on_attach = on_attach,
 -- })
 
 lspconfig.rust_analyzer.setup({
 	capabilities = capabilities,
-	on_attach = on_attach,
 	settings = {
 		["rust-analyzer"] = {},
 	},

@@ -1,5 +1,17 @@
 return {
-    'chomosuke/term-edit.nvim',
-    lazy = false, -- or ft = 'toggleterm' if you use toggleterm.nvim
-    version = '1.*',
+	{
+		"chomosuke/term-edit.nvim",
+		ft = "toggleterm",
+		version = "1.*",
+	},
+
+	{
+		"akinsho/toggleterm.nvim",
+		config = function()
+			require("toggleterm").setup({
+				open_mapping = [[<C-q>]],
+				direction = "float",
+			})
+		end,
+	},
 }

@@ -1,4 +1,4 @@
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
+vim.keymap.set('t', '<C-]>', [[<C-\><C-n>]])
 require 'term-edit'.setup {
     -- Mandatory option:
     -- Set this to a lua pattern that would match the end of your prompt.

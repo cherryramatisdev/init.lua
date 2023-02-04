@@ -3,11 +3,10 @@ return {
   "antoinemadec/FixCursorHold.nvim",
   "tjdevries/colorbuddy.vim",
   "tjdevries/gruvbuddy.nvim",
-  "Mofiqul/vscode.nvim",
-  "kdheepak/lazygit.nvim",
   "stevearc/oil.nvim",
   "tpope/vim-fugitive",
   "tpope/vim-rhubarb",
+  "tpope/vim-ragtag",
   "tpope/vim-rsi",
   {
     "andweeb/presence.nvim",

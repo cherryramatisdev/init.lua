@@ -1,7 +1,9 @@
 vim.keymap.set("n", "<Tab>", ":tabp<cr>")
 vim.keymap.set("n", "<S-Tab>", ":tabn<cr>")
 
-vim.keymap.set("n", "<leader>g", ":LazyGit<cr>")
+vim.keymap.set("n", "<leader>g", function ()
+  vim.cmd [[TermExec cmd=lazygit]]
+end)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -22,9 +24,3 @@ vim.keymap.set("n", "<right>", [[<C-w><]])
 vim.keymap.set("n", "<left>", [[<C-w>>]])
 vim.keymap.set("n", "<up>", [[<C-w>+]])
 vim.keymap.set("n", "<down>", [[<C-w>-]])
-
-for i in pairs({ 1, 2, 3, 4, 5 }) do
-	vim.keymap.set("n", "<leader>" .. i, function()
-		POPTERM(i)
-	end)
-end

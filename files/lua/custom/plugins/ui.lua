@@ -1,5 +1,12 @@
 return {
+  -- Themes
+  "Mofiqul/vscode.nvim",
+  { "catppuccin/nvim", name = "catppuccin" },
+
+  -- Statusline
   "tjdevries/express_line.nvim",
+
+  -- Notification
   {
     "utilyre/barbecue.nvim",
     version = "*",
@@ -9,7 +16,6 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
   },
-  "tjdevries/express_line.nvim",
   {
     "smjonas/live-command.nvim",
     config = function()
@@ -20,9 +26,7 @@ return {
       })
     end,
   },
-  -- "folke/noice.nvim",
   { "j-hui/fidget.nvim", config = true },
-  -- "MunifTanjim/nui.nvim",
   "rcarriga/nvim-notify",
   {
     "stevearc/dressing.nvim",
