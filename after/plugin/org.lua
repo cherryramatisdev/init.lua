@@ -9,9 +9,13 @@ end
 require("orgmode").setup {
   org_agenda_files = "~/git/stowed/org/*.org",
   org_default_notes_file = "~/git/stowed/org/todo.org",
-  org_capture_templates = { 
-      t = { description = 'Task', template = '** TODO %?\nSCHEDULED: %^T\nRef: %a', headline = 'Inbox' },
-      m = { description = 'Meeting', template = '** TODO %?\nSCHEDULED: %^T\n\nGoal:\nAnnotations:\nQuestions:\nResults/Summary:', headline = 'Meetings' },
+  org_capture_templates = {
+    t = { description = "Task", template = "** TODO %?\nSCHEDULED: %^T\nRef: %a", headline = "Inbox" },
+    m = {
+      description = "Meeting",
+      template = "** TODO %?\nSCHEDULED: %^T\n\nGoal:\nAnnotations:\nQuestions:\nResults/Summary:",
+      headline = "Meetings",
+    },
   },
 }
 

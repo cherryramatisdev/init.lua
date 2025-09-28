@@ -80,7 +80,7 @@ vim.keymap.set("n", "<leader>ad", function()
   run_aider_command { "/drop", vim.fn.expand "%:p" }
 end, { desc = "[AI] Drop current file from aider session" })
 
-vim.keymap.set({"n", "v"}, "<leader>ak", function()
+vim.keymap.set({ "n", "v" }, "<leader>ak", function()
   local ts_utils = require "ts_utils"
 
   local node_result = ts_utils:find_ts_parent_node_at_cursor()
@@ -118,7 +118,7 @@ vim.keymap.set({"n", "v"}, "<leader>ak", function()
 end, { desc = "[AI] Ask a question about the current block" })
 
 vim.keymap.set("n", "<leader>aD", function()
-  run_aider_command({"/drop"})
+  run_aider_command { "/drop" }
 end, { desc = "[AI] Drop all files from aider session" })
 
 vim.keymap.set("n", "<leader>aq", function()
@@ -133,7 +133,7 @@ vim.keymap.set("n", "<leader>aq", function()
         return
       end
 
-      run_aider_command({"/quit"})
+      run_aider_command { "/quit" }
       vim.api.nvim_buf_delete(aider_buffer.buf, { force = true })
     end
   end)
