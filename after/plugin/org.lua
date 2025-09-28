@@ -175,6 +175,7 @@ require("org-super-agenda").setup {
   debug = false,
 }
 
+-- TODO: this isnt working, why?
 vim.keymap.set("n", "<leader>oa", ":OrgSuperAgenda!", { desc = "org super agenda", remap = true })
 
 vim.pack.add {
