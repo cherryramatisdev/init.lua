@@ -9,11 +9,12 @@ end
 require("orgmode").setup {
   org_agenda_files = "~/git/stowed/org/*.org",
   org_default_notes_file = "~/git/stowed/org/todo.org",
+  org_todo_keywords = {'TODO(t)', 'PROGRESS(p)', '|', 'MEETING(m)', 'DONE(d)'},
   org_capture_templates = {
-    t = { description = "Task", template = "** TODO %?\nSCHEDULED: %^T\nRef: %a", headline = "Inbox" },
+    t = { description = "Task", template = "** TODO %?\n  SCHEDULED: %^T\n  Ref: %a", headline = "Inbox" },
     m = {
       description = "Meeting",
-      template = "** TODO %?\nSCHEDULED: %^T\n\nGoal:\nAnnotations:\nQuestions:\nResults/Summary:",
+      template = "** MEETING %?\n  SCHEDULED: %^T\n\n  Goal:\n  Annotations:\n  Questions:\n  Results/Summary:",
       headline = "Meetings",
     },
   },
