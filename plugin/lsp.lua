@@ -1,4 +1,4 @@
-vim.lsp.enable { "lua_ls", "ts_ls", "gopls", "rust_analyzer", "clangd", "expert", "pyright", "ocamllsp", "clojure_lsp" }
+vim.lsp.enable { "lua_ls", "ts_ls", "gopls", "rust_analyzer", "clangd", "expert", "pyright", "ocamllsp", "clojure_lsp", "zls" }
 
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
   if vim.snippet.active { direction = 1 } then
