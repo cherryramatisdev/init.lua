@@ -57,9 +57,9 @@ vim.api.nvim_create_autocmd({ "CmdlineChanged", "CmdlineLeave" }, {
 
 vim.keymap.set("n", "<leader>f", ":find<space>", { desc = "[Fuzzy] find files" })
 vim.keymap.set("n", "<leader>b", ":b<space>", { desc = "[Fuzzy] find buffers" })
-vim.keymap.set("n", "<leader>/", ":grep<space>", { desc = "[Grep] for something" })
-vim.keymap.set("n", "<leader>?", ":grep <c-r><c-w><cr>", { desc = "[Grep] for current word" })
-vim.keymap.set("v", "<leader>?", [["ay:grep '<C-r>a'<cr>]], { desc = "[Grep] for visual selection" })
+vim.keymap.set("n", "<leader>/", ":silent grep<space>", { desc = "[Grep] for something" })
+vim.keymap.set("n", "<leader>?", ":silent grep <c-r><c-w><cr>", { desc = "[Grep] for current word" })
+vim.keymap.set("v", "<leader>?", [["ay:silent grep '<C-r>a'<cr>]], { desc = "[Grep] for visual selection" })
 
 vim.keymap.set("c", "<m-e>", "<home><s-right><c-w>edit<end>", { desc = "Change command to :edit" })
 vim.keymap.set("c", "<m-f>", "<home><s-right><c-w>find<end>", { desc = "Change command to :find" })
