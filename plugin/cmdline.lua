@@ -37,7 +37,6 @@ vim.api.nvim_create_autocmd({ "CmdlineChanged", "CmdlineLeave" }, {
           and (
             is_cmdline_type_find()
             or cmdline_cmd == "help"
-            or cmdline_cmd == "h"
             or cmdline_cmd == "buffer"
             or cmdline_cmd == "b"
           )
