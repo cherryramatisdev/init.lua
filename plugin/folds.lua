@@ -1,7 +1,8 @@
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-vim.opt.foldmethod = "indent"
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 vim.g.have_nerd_font = false
 
