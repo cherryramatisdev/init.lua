@@ -5,13 +5,6 @@ vim.pack.add {
 vim.cmd [[ hi! StatusLine guibg=NONE guifg=NONE gui=NONE term=NONE ]]
 vim.cmd [[ hi! StatusLineNC guibg=NONE guifg=NONE gui=NONE term=NONE ]]
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = "lua",
-  callback = function()
-    vim.treesitter.stop()
-  end,
-})
-
 require("auto-dark-mode").setup {
   set_dark_mode = function()
     vim.api.nvim_set_option_value("background", "dark", {})
