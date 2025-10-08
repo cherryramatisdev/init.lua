@@ -48,4 +48,23 @@ function M:find_ts_parent_node_at_cursor()
   })
 end
 
+---@param node TSNode
+---@return string[]
+function M:get_node_aligned_content(node)
+  local start_row, start_col, end_row, end_col = node:range()
+  local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row + 1, false)
+
+  -- NOTE: Adjust first and last lines based on columns
+  if #lines > 0 then
+    lines[1] = string.sub(lines[1], start_col + 1)
+    if #lines > 1 then
+      lines[#lines] = string.sub(lines[#lines], 1, end_col)
+    else
+      lines[1] = string.sub(lines[1], 1, end_col - start_col)
+    end
+  end
+
+  return lines
+end
+
 return M

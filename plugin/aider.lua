@@ -3,6 +3,9 @@
 
 vim.g.aider_cmd = "aichat"
 
+local ENTER_SEQUENCE = "\n"
+local META_ENTER_SEQUENCE = "\x1b\r"
+
 local function is_buffer_visible(bufnr)
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.api.nvim_win_get_buf(win) == bufnr then
@@ -30,8 +33,7 @@ end
 ---@param job_id number Can be retrieved through vim.api.nvim_buf_get_var(buf, 'terminal_job_id')
 ---@param cmd string
 local function send_command_to_aider(job_id, cmd)
-  local meta_enter_sequence = "\x1b\r"
-  vim.api.nvim_chan_send(job_id, cmd .. meta_enter_sequence)
+  vim.api.nvim_chan_send(job_id, cmd .. ENTER_SEQUENCE)
 end
 
 ---@param cmds string[]
@@ -46,6 +48,56 @@ local function run_aider_command(cmds)
   local job_id = vim.api.nvim_buf_get_var(aider_buffer.buf, "terminal_job_id")
 
   send_command_to_aider(job_id, vim.fn.join(cmds, " "))
+end
+
+---@return string[]
+local function get_visual_selection()
+  -- Get the visual selection marks
+  local start_pos = vim.fn.getpos "'<"
+  local end_pos = vim.fn.getpos "'>"
+
+  -- Get the selected lines
+  local lines = vim.api.nvim_buf_get_lines(0, start_pos[2] - 1, end_pos[2], false)
+
+  -- Handle partial selection on first and last lines
+  if #lines > 0 then
+    -- Adjust first line based on start column
+    lines[1] = string.sub(lines[1], start_pos[3])
+
+    -- Adjust last line based on end column
+    if #lines > 1 then
+      lines[#lines] = string.sub(lines[#lines], 1, end_pos[3])
+    elseif start_pos[2] == end_pos[2] then
+      -- Single line selection
+      lines[1] = string.sub(lines[1], 1, end_pos[3] - start_pos[3] + 1)
+    end
+  end
+
+  return lines
+end
+
+---@return string[]|nil
+local function get_treesitter_block()
+  local ts_utils = require "ts_utils"
+  local node_result = ts_utils:find_ts_parent_node_at_cursor()
+
+  if not node_result.ok then
+    vim.notify(node_result.error)
+    return nil
+  end
+
+  return ts_utils:get_node_aligned_content(node_result.node)
+end
+
+---@return string[]|nil
+local function get_code_block()
+  local mode = vim.api.nvim_get_mode().mode
+
+  if mode == "v" or mode == "V" or mode == "\22" then -- visual, visual-line, or visual-block mode
+    return get_visual_selection()
+  else
+    return get_treesitter_block()
+  end
 end
 
 vim.keymap.set("n", "<leader>aa", function()
@@ -81,29 +133,11 @@ vim.keymap.set("n", "<leader>ad", function()
 end, { desc = "[AI] Drop current file from aider session" })
 
 vim.keymap.set({ "n", "v" }, "<leader>ak", function()
-  local ts_utils = require "ts_utils"
-
-  local node_result = ts_utils:find_ts_parent_node_at_cursor()
-
-  if not node_result.ok then
-    vim.notify(node_result.error)
+  local block_text = get_code_block()
+  if not block_text then
     return
   end
 
-  local start_row, start_col, end_row, end_col = node_result.node:range()
-  local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row + 1, false)
-
-  -- NOTE: Adjust first and last lines based on columns
-  if #lines > 0 then
-    lines[1] = string.sub(lines[1], start_col + 1)
-    if #lines > 1 then
-      lines[#lines] = string.sub(lines[#lines], 1, end_col)
-    else
-      lines[1] = string.sub(lines[1], 1, end_col - start_col)
-    end
-  end
-
-  local block_text = table.concat(lines, "\n")
   local filename = vim.fn.expand "%:p"
 
   vim.ui.input({
@@ -113,9 +147,45 @@ vim.keymap.set({ "n", "v" }, "<leader>ak", function()
       return
     end
 
-    run_aider_command { "/ask", input, string.format("\n\nContext from: %s:\n\n```\n%w\n```", filename, block_text) }
+    run_aider_command {
+      "/ask",
+      input,
+      META_ENTER_SEQUENCE,
+      META_ENTER_SEQUENCE,
+      string.format("Context from: %s", filename),
+      META_ENTER_SEQUENCE,
+      META_ENTER_SEQUENCE,
+      table.concat(block_text, META_ENTER_SEQUENCE),
+    }
   end)
-end, { desc = "[AI] Ask a question about the current block" })
+end, { desc = "[AI] Ask a question about the current block (treesitter)" })
+
+vim.keymap.set({ "n", "v" }, "<leader>ar", function()
+  local block_text = get_code_block()
+  if not block_text then
+    return
+  end
+
+  local filename = vim.fn.expand "%:p"
+
+  vim.ui.input({
+    prompt = "Request about this code block: ",
+  }, function(input)
+    if not input or input == "" then
+      return
+    end
+
+    run_aider_command {
+      input,
+      META_ENTER_SEQUENCE,
+      META_ENTER_SEQUENCE,
+      string.format("Context from: %s", filename),
+      META_ENTER_SEQUENCE,
+      META_ENTER_SEQUENCE,
+      table.concat(block_text, META_ENTER_SEQUENCE),
+    }
+  end)
+end, { desc = "[AI] Request a change about the current block (treesitter)" })
 
 vim.keymap.set("n", "<leader>aD", function()
   run_aider_command { "/drop" }
