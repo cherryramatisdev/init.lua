@@ -1,9 +1,15 @@
 vim.pack.add {
+  -- NOTE: This is just for when pair programming because my theme is weird.
+  { src = "https://github.com/folke/tokyonight.nvim" },
   { src = "https://github.com/f-person/auto-dark-mode.nvim" },
 }
 
 vim.cmd [[ hi! StatusLine guibg=NONE guifg=NONE gui=NONE term=NONE ]]
 vim.cmd [[ hi! StatusLineNC guibg=NONE guifg=NONE gui=NONE term=NONE ]]
+
+if not pcall(require, "auto-dark-mode") then
+  return
+end
 
 require("auto-dark-mode").setup {
   set_dark_mode = function()
