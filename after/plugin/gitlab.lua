@@ -1,29 +1,33 @@
--- vim.pack.add({
---     { src = "https://github.com/harrisoncramer/gitlab.nvim" },
---     { src = "https://github.com/sindrets/diffview.nvim" },
---     { src = "https://github.com/MunifTanjim/nui.nvim" },
---     { src = "https://github.com/nvim-lua/plenary.nvim" },
--- })
---
+vim.pack.add({
+  { src = "https://github.com/sindrets/diffview.nvim" },
+}, { load = true })
+
+vim.pack.add {
+  { src = "https://github.com/harrisoncramer/gitlab.nvim" },
+  { src = "https://github.com/MunifTanjim/nui.nvim" },
+  { src = "https://github.com/nvim-lua/plenary.nvim" },
+}
+
+-- TODO: isn't working
 -- vim.api.nvim_create_autocmd({ "PackChanged" }, {
 --     pattern = "*",
 --     callback = function()
 --         require 'gitlab.server'.build(true)
 --     end
 -- })
---
--- local diffview_ok, _ = pcall(require, 'diffview')
---
--- if not diffview_ok then
---     return
--- end
---
--- local gitlab_ok, gitlab = pcall(require, 'gitlab')
---
--- if not gitlab_ok then
---     return
--- end
---
--- gitlab.setup()
--- vim.keymap.set('n', '<leader>gr', gitlab.review, { desc = "Review a MR" })
--- vim.keymap.set('n', '<leader>gc', gitlab.create_mr, { desc = "Create a new MR" })
+
+local diffview_ok, _ = pcall(require, "diffview")
+
+if not diffview_ok then
+  return
+end
+
+local gitlab_ok, gitlab = pcall(require, "gitlab")
+
+if not gitlab_ok then
+  return
+end
+
+gitlab.setup()
+vim.keymap.set("n", "<leader>gr", gitlab.review, { desc = "Review a MR" })
+vim.keymap.set("n", "<leader>gc", gitlab.create_mr, { desc = "Create a new MR" })
