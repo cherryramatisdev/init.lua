@@ -1,4 +1,16 @@
-vim.lsp.enable { "lua_ls", "ts_ls", "css_ls", "gopls", "rust_analyzer", "clangd", "expert", "pyright", "ocamllsp", "clojure_lsp", "zls" }
+vim.lsp.enable {
+  "lua_ls",
+  "ts_ls",
+  "css_ls",
+  "gopls",
+  "rust_analyzer",
+  "clangd",
+  "expert",
+  "pyright",
+  "ocamllsp",
+  "clojure_lsp",
+  "zls",
+}
 
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
   if vim.snippet.active { direction = 1 } then
@@ -59,11 +71,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.keymap.set("n", "grr", function()
         Snacks.picker.lsp_references { layout = "dropdown" }
       end, { desc = "[LSP] Find references" })
-      vim.keymap.set("n", "grd", Snacks.picker.lsp_definitions, { desc = "[LSP] Go to definition" })
-      vim.keymap.set("n", "<c-w>grd", function()
-        vim.cmd.wincmd "v"
-        Snacks.picker.lsp_definitions()
-      end, { desc = "[LSP] Go to definition" })
       vim.keymap.set("n", "gri", function()
         Snacks.picker.lsp_implementations { layout = "dropdown" }
       end, { desc = "[LSP] Go to implementation" })
@@ -76,13 +83,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.keymap.set("n", "g<c-o>", function()
         Snacks.picker.lsp_workspace_symbols { layout = "dropdown" }
       end, { desc = "[LSP] Search workspace symbols" })
-    else
-      vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[LSP] Go to definition" })
-      vim.keymap.set("n", "<c-w>grd", function()
-        vim.cmd.wincmd "v"
-        vim.lsp.buf.definition()
-      end, { desc = "[LSP] Go to definition" })
     end
+
+    vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[LSP] Go to definition" })
+
+    vim.keymap.set("n", "<c-w>grd", function()
+      vim.cmd.wincmd "v"
+      vim.lsp.buf.definition()
+    end, { desc = "[LSP] Go to definition" })
 
     vim.keymap.set("n", "grq", function()
       vim.diagnostic.setqflist {}
